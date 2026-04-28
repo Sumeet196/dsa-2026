@@ -25,6 +25,9 @@ int splitArray(vi &nums, int k) {
             end = allowedSum - 1;
         }
     }
+    if (ans == INT_MAX) {
+        return -1;
+    }
     return ans;
 }
 
