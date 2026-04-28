@@ -28,6 +28,6 @@ int findOcc(vector <int> vi, int target, bool isFirst) {
 
 int main() {
     vector <int> vi = {1, 2, 3, 3, 3, 5};
-    cout << findOcc(vi, 3, 0);
+    cout << findOcc(vi, 3, 1) << " " << findOcc(vi, 3, 0);
     return 0;
 }
