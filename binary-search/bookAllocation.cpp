@@ -4,36 +4,42 @@
 using namespace std;
 using vi = vector<int>;
 
-int splitArray(vi &nums, int k) {
+bool isAllocationPossible(vi &pages, int numOfPeople, int maxPagesAllowed) {
+    int requiredStudents = 1;
+    int currentPages = 0;
+    for (int page: pages) {
+        if(currentPages + page > maxPagesAllowed) {
+            requiredStudents++;
+            currentPages = page;
+        } else {
+            currentPages += page;
+        }
+    }
+    return (numOfPeople >= requiredStudents);
+}
+
+int findPages(vi &nums, int k) {
+    if (k > nums.size()) return -1;
+
     int start = *max_element(nums.begin(), nums.end());
     int end = 0; for (auto i: nums) end += i;
-    int ans = INT_MAX;
+
+    int answer = -1;
     while (start <= end) {
-        int count = 1, currSum = 0;
-        int allowedSum = start + (end - start) / 2;
-        for (auto ele: nums) {
-            if (currSum + ele > allowedSum) {
-                count++; currSum = ele;
-            } else {
-                currSum += ele;
-            }
-        }
-        if (count > k) {
-            start = allowedSum + 1;
+        int mid = (start + end) / 2;
+        if (isAllocationPossible(nums, k, mid)) {
+            answer = mid;
+            end = mid - 1;
         } else {
-            ans = min(ans, allowedSum);
-            end = allowedSum - 1;
+            start = mid + 1;
         }
     }
-    if (ans == INT_MAX) {
-        return -1;
-    }
-    return ans;
+    return answer;
 }
 
 int main() {
     vi nums = {1, 2, 3, 4, 5};
     int k = 2;
-    cout << splitArray(nums, k) << endl;
+    cout << findPages(nums, k) << endl;
     return 0;
 }
