@@ -2,26 +2,29 @@
 #include <vector>
 using namespace std;
 
-int mountainPeak(vector <int> v) {
+int mountainPeak(vector<int> v)
+{
     int start = 0, end = v.size() - 1;
-    int mid = start + (end - start) / 2;
 
-    while(start <= end) {
-        if (v[mid] > v[mid+1] & v[mid] > v[mid-1]){
-            return mid;
-        } 
-        else if (v[mid] > v[mid+1] & v[mid] < v[mid-1]) {
-            end = mid - 1;
-        } else {
+    while (start < end)
+    {
+        int mid = start + (end - start) / 2;
+        if (v[mid] < v[mid + 1])
+        {
             start = mid + 1;
         }
-        mid = start + (end - start) / 2;
+        else
+        {
+            end = mid;
+        }
     }
-    return mid; 
+
+    return start;
 }
 
-int main(){
-    vector <int> v = {1, 3, 4, 5, 3, 2};
+int main()
+{
+    vector<int> v = {1, 3, 4, 5, 3, 2};
     cout << mountainPeak(v) << endl;
     return 0;
 }

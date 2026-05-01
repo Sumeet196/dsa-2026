@@ -5,13 +5,12 @@ using namespace std;
 
 int findOcc(vector <int> vi, int target, bool isFirst) {
     int n = vi.size();
-    int start = 0;
-    int end = n - 1;
-    int mid = (start + end) / 2;
+    int start = 0; int end = n - 1;
 
     int ans = -1;
 
     while (start <= end) {
+        int mid = (start + end) / 2;
         if (vi[mid] == target) {
             ans = mid;
             if (isFirst) end = mid - 1;
@@ -21,8 +20,7 @@ int findOcc(vector <int> vi, int target, bool isFirst) {
         } else {
             end = mid - 1;
         }
-        mid = (start + end) / 2;
-        }
+    }
     return ans;
 }
 
