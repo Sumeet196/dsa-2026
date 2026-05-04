@@ -16,6 +16,7 @@ void solveSubsets(vi &arr, vvi &ans, int idx, vi &current){
 }
 
 vvi subsets(vi &arr){
+    sort(arr.begin(), arr.end());
     vvi ans = {};
     vi current;
     solveSubsets(arr, ans, 0, current);
@@ -27,6 +28,7 @@ int main() {
     cin.tie(NULL);
     vi arr = {1, 2, 3, 4};
     vvi ans = subsets(arr);
+    sort(arr.begin(), arr.end());
     cout << ans.size() << endl;
     for (auto i: ans) {
         for (auto j: i) {

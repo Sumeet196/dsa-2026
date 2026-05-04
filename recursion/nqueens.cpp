@@ -6,10 +6,10 @@ using vi = vector<int>;
 using vs = vector<string>;
 using vvs = vector<vector<string>>;
 
-bool addQueens(vs &board, vvs &ans, int row, int n, vi &cols, vi &diag1, vi &diag2) {
-    if (row == n){
+void addQueens(vs &board, vvs &ans, int row, int n, vi &cols, vi &diag1, vi &diag2) {
+    if(row == n){
         ans.push_back(board);
-        return true;
+        return;
     }
     for(int col = 0; col < n; col++) {
         if(cols[col] == 1 || diag1[row + col] == 1 || diag2[row - col + n] == 1) continue;
@@ -17,14 +17,11 @@ bool addQueens(vs &board, vvs &ans, int row, int n, vi &cols, vi &diag1, vi &dia
         board[row][col] = 'Q';
         cols[col] = diag1[row + col] = diag2[row - col + n] = 1;
         
-        if(addQueens(board, ans, row + 1, n, cols, diag1, diag2)) {
-            return true;
-        }
-
+        addQueens(board, ans, row + 1, n, cols, diag1, diag2);
+        
         board[row][col] = '.';
         cols[col] = diag1[row + col] = diag2[row - col + n] = 0;
     }
-    return false;
 }
 
 vvs solvedQueens(int n) {
