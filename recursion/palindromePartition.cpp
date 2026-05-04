@@ -13,7 +13,7 @@ bool isPalindrome(string s) {
     return temp == s;
 }
 
-void palindromPartition(string str, vs &current, vvs &ans) {
+void palindromePartition(string str, vs &current, vvs &ans) {
     if (str.size() == 0) {
         ans.push_back(current);
         return;
@@ -21,9 +21,9 @@ void palindromPartition(string str, vs &current, vvs &ans) {
     for (int i = 0; i < str.size(); i++) {
         string left = str.substr(0, i + 1);
         string right = str.substr(i + 1);
-        if (isPalindrome(left)) {
+        if(isPalindrome(left)) {
             current.push_back(left);
-            palindromPartition(right, current, ans);
+            palindromePartition(right, current, ans);
             current.pop_back();
         }
     }
@@ -32,12 +32,12 @@ void palindromPartition(string str, vs &current, vvs &ans) {
 vvs solve(string str) {
     vvs ans;
     vs current;
-    palindromPartition(str, current, ans);
+    palindromePartition(str, current, ans);
     return ans;
 }
 
 int main() {
-    string str = "aab";
+    string str = "aabacdcddca";
     vvs ans = solve(str);
     for (auto i : ans) {
         for (auto j : i) {
